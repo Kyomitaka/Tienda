@@ -1,6 +1,7 @@
 package com.tienda.controller;
 
 import com.tienda.domain.Producto;
+import com.tienda.domain.Categoria;
 import com.tienda.service.CategoriaService;
 import com.tienda.service.ProductoService;
 import com.tienda.service.impl.FirebaseStorageServiceImpl;
@@ -21,6 +22,7 @@ public class ProductoController {
 
     @Autowired
     private ProductoService productoService;
+
     @Autowired
     private CategoriaService categoriaService;
 
@@ -67,9 +69,9 @@ public class ProductoController {
     @GetMapping("/modificar/{idProducto}") //{idProducto} = path variable
     public String productoModificar(Producto producto, Model model) {
         producto = productoService.getProducto(producto);
+        model.addAttribute("producto", producto);
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
-        model.addAttribute("producto", producto);
         return "/producto/modifica";
     }
 }
